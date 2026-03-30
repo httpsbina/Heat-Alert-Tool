@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heat Alert · Common Senses</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="eyebrow">Common Senses · Blue Hill Ave Corridor</div>
+      <h1>Heat Alert Tool</h1>
+      <p class="subtitle">Real-time heat conditions for your neighborhood in Boston.</p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Location selector -->
+    <section class="card" id="location-card">
+      <label class="section-label" for="locationSelect">Choose a sensor location</label>
+      <select id="locationSelect">
+        <option value="">— Select a neighborhood —</option>
+        <option value="dudley">Dudley Town Common (Roxbury)</option>
+        <option value="nubian">Nubian Square (Roxbury)</option>
+        <option value="uphams">Upham's Corner (Dorchester)</option>
+        <option value="fourCorners">Four Corners (Dorchester)</option>
+        <option value="blueHillMid">Blue Hill Ave & Quincy St (Dorchester)</option>
+        <option value="ashmont">Ashmont (Dorchester)</option>
+        <option value="mattapanSq">Mattapan Square</option>
+        <option value="mattapanN">Mattapan (North)</option>
+        <option value="franklinPark">Franklin Park (Roxbury/Dorchester)</option>
+        <option value="hydepark">Hyde Park</option>
+        <option value="jamaicaPlain">Jamaica Plain</option>
+      </select>
+
+      <div class="unit-toggle">
+        <span class="toggle-label">Temperature unit</span>
+        <div class="toggle-buttons">
+          <button id="btnF" class="toggle-btn active" onclick="setUnit('F')">°F</button>
+          <button id="btnC" class="toggle-btn" onclick="setUnit('C')">°C</button>
+        </div>
+      </div>
+
+      <button class="primary-btn" onclick="checkHeat()">Check Conditions</button>
+    </section>
+
+    <!-- Result -->
+    <section id="result"></section>
+
+    <!-- Notification signup -->
+    <section class="card" id="notify-card">
+      <div class="section-label">Get heat alerts for your neighborhood</div>
+      <p class="notify-desc">We'll contact you when heat conditions reach a level you choose.</p>
+
+      <div class="form-group">
+        <label for="notifyLocation">Neighborhood</label>
+        <select id="notifyLocation">
+          <option value="">— Select —</option>
+          <option value="dudley">Dudley Town Common (Roxbury)</option>
+          <option value="nubian">Nubian Square (Roxbury)</option>
+          <option value="uphams">Upham's Corner (Dorchester)</option>
+          <option value="fourCorners">Four Corners (Dorchester)</option>
+          <option value="blueHillMid">Blue Hill Ave & Quincy St (Dorchester)</option>
+          <option value="ashmont">Ashmont (Dorchester)</option>
+          <option value="mattapanSq">Mattapan Square</option>
+          <option value="mattapanN">Mattapan (North)</option>
+          <option value="franklinPark">Franklin Park</option>
+          <option value="hydepark">Hyde Park</option>
+          <option value="jamaicaPlain">Jamaica Plain</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="notifyEmail">Email address</label>
+        <input type="email" id="notifyEmail" placeholder="you@example.com" />
+      </div>
+
+      <div class="form-group">
+        <label for="notifyPhone">Phone number (for SMS)</label>
+        <input type="tel" id="notifyPhone" placeholder="(617) 555-0100" />
+      </div>
+
+      <div class="form-group">
+        <label for="notifyLevel">Alert me when heat risk is</label>
+        <select id="notifyLevel">
+          <option value="moderate">Moderate or higher</option>
+          <option value="high">High or higher</option>
+          <option value="extreme">Extreme only</option>
+        </select>
+      </div>
+
+      <button class="primary-btn" onclick="submitNotify()">Sign me up</button>
+      <div id="notify-msg"></div>
+    </section>
+
+    <footer>
+      Data sourced from <a href="https://www.commonsensesproject.org" target="_blank">Common Senses Project</a> &amp; Open-Meteo.
+      <br>A BARI community tool · <a href="mailto:info@commonsensesproject.org">info@commonsensesproject.org</a>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
