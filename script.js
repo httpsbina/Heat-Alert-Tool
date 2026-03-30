@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────
+/ ─────────────────────────────────────────────
 // COMMON SENSES HEAT ALERT TOOL
 // script.js
 // ─────────────────────────────────────────────
@@ -235,28 +235,28 @@ function submitNotify() {
     showNotifyMsg('Please enter a valid email address.', 'error'); return;
   }
 
-  // ── TODO: Send to backend ─────────────────────────────────────────────────
-  // Example with Formspree (free tier, just replace YOUR_FORM_ID):
-  //
-  // fetch('https://formspree.io/f/YOUR_FORM_ID', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ neighborhood, email, phone, alertLevel: level }),
-  // });
-  //
-  // Example with a BARI backend:
-  // fetch('https://YOUR_API/subscribe', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({ neighborhood, email, phone, alertLevel: level }),
-  // });
-  // ──────────────────────────────────────────────────────────────────────────
+  try {
+    const res = await fetch('https://formspree.io/f/mwvwlgwn', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        neighborhood: LOCATIONS[neighborhood]?.name || neighborhood,
+        email,
+        phone,
+        alertLevel: level,
+      }),
+    });
 
-  console.log('Signup:', { neighborhood, email, phone, level });
+    if (!res.ok) throw new Error('Formspree error: ' + res.status);
 
-  showNotifyMsg("You're signed up! We'll alert you when heat conditions reach your selected level.", 'success');
-  document.getElementById('notifyEmail').value = '';
-  document.getElementById('notifyPhone').value = '';
+    showNotifyMsg("You're signed up! We'll alert you when heat conditions reach your selected level.", 'success');
+    document.getElementById('notifyEmail').value = '';
+    document.getElementById('notifyPhone').value = '';
+    document.getElementById('notifyLocation').value = '';
+  } catch (err) {
+    console.error(err);
+    showNotifyMsg('Something went wrong. Please try again or email info@commonsensesproject.org.', 'error');
+  }
 }
 
 function showNotifyMsg(msg, type) {
